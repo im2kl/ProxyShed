@@ -11,6 +11,7 @@ import (
 	"regexp"
 	"strings"
 	"sync"
+	"time"
 )
 
 var SourceUrl = "proxysource.pnxbl.com"
@@ -49,6 +50,9 @@ func SplitProxy() {
 			wg.Done()
 		}()
 
+		// going further add checks for socks4 and socsk 5 as an extra func. followed by IP lookup
+		// socks4 : https://github.com/Bogdan-D/go-socks4
+		// socks5 : https://play.golang.org/p/l0iLtkD1DV
 	}
 	wg.Wait()
 }
@@ -76,6 +80,7 @@ func proxyDial(x ProxAddress) {
 		rw.WriteString(fmt.Sprintf("Request received: %s", req))
 		rw.Flush()
 	}
+
 }
 
 func ProxyPing(x ProxAddress) {
@@ -85,7 +90,7 @@ func ProxyPing(x ProxAddress) {
 		log.Fatal(err)
 	}
 	myClient := &http.Client{Transport: &http.Transport{Proxy: http.ProxyURL(proxyUrl)}}
-
+	myClient.Timeout = time.Second * 60
 	request, err := http.NewRequest("GET", "https://www.google.com", nil)
 	//request.Header.Set("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36")
 
@@ -110,7 +115,7 @@ func main() {
 }
 
 func gather() {
-	response, err := http.Get("https://proxy-daily.com/")
+	response, err := http.Get("https://pastebin.com/5hncqxh0")
 	if err != nil {
 		log.Fatal(err)
 	}
