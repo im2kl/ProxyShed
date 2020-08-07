@@ -7,11 +7,9 @@ import (
 	"log"
 	"net"
 	"net/http"
-	"net/url"
 	"regexp"
 	"strings"
 	"sync"
-	"time"
 )
 
 var SourceUrl = "proxysource.pnxbl.com"
@@ -84,28 +82,7 @@ func proxyDial(x ProxAddress) {
 }
 
 func ProxyPing(x ProxAddress) {
-
-	proxyUrl, err := url.Parse("https://" + x.IP + ":" + x.Port)
-	if err != nil {
-		log.Fatal(err)
-	}
-	myClient := &http.Client{Transport: &http.Transport{Proxy: http.ProxyURL(proxyUrl)}}
-	myClient.Timeout = time.Second * 60
-	request, err := http.NewRequest("GET", "https://www.google.com", nil)
-	//request.Header.Set("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36")
-
-	resp, err := myClient.Do(request)
-
-	if err != nil {
-		fmt.Printf("IP:%s \t %s Port\t FAILED\n", x.IP, x.Port)
-		fmt.Printf(err.Error() + "\n")
-		return
-	}
-	defer resp.Body.Close()
-
-	httpcode := resp.Status
-
-	fmt.Printf("IP:%s \t %s Port\t %s\n", x.IP, x.Port, httpcode)
+	// proxydial >> dialhttp
 }
 
 func main() {
