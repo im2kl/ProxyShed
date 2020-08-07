@@ -115,7 +115,7 @@ func main() {
 }
 
 func gather() {
-	response, err := http.Get("https://pastebin.com/5hncqxh0")
+	response, err := http.Get("https://gist.github.com/futurex189/3769289")
 	if err != nil {
 		log.Fatal(err)
 	}
