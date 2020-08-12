@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 	"net/url"
+	"sync"
 	"time"
 )
 
@@ -14,9 +15,27 @@ type IPV4Address struct {
 	Port string `json:"Port"`
 }
 
+var SortedList []IPV4Address
+
 // Test runs a test on the proxy to determine the type of proxy it is.
 func Test() string {
 
+	var wg sync.WaitGroup
+	for _, p := range SortedList {
+		fmt.Printf("IP:%s \t %s Port\n", p.IP, p.Port)
+
+		wg.Add(1)
+
+		go func() {
+			dialHTTP(p)
+			wg.Done()
+		}()
+
+		// going further add checks for socks4 and socsk 5 as an extra func. followed by IP lookup
+		// socks4 : https://github.com/Bogdan-D/go-socks4
+		// socks5 : https://play.golang.org/p/l0iLtkD1DV
+	}
+	wg.Wait()
 	return "proxy type to return"
 }
 
@@ -55,3 +74,30 @@ func dialSock5() bool {
 
 	return true
 }
+
+/*
+func proxyDial(x ProxAddress) {
+	prox := x.IP + ":" + x.Port
+	conn, err := net.Dial("tcp", prox)
+	if err != nil {
+		fmt.Printf(err.Error() + "\n")
+		return
+	}
+	fmt.Printf(conn.RemoteAddr().String() + "\n")
+
+	defer conn.Close()
+	fmt.Printf("No error###########################################################################################? \n")
+	rw := bufio.NewReadWriter(bufio.NewReader(conn), bufio.NewWriter(conn))
+	for {
+		req, err := rw.ReadString('\n')
+		if err != nil {
+			rw.WriteString("failed to read input")
+			rw.Flush()
+			return
+		}
+
+		rw.WriteString(fmt.Sprintf("Request received: %s", req))
+		rw.Flush()
+	}
+
+*/
