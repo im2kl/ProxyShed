@@ -1,7 +1,10 @@
 package main
 
 import (
+	"fmt"
+
 	"github.com/im2kl/ProxyShed/Client/config"
+	"github.com/im2kl/ProxyShed/Client/scraper"
 )
 
 type ProxAddress struct {
@@ -9,10 +12,21 @@ type ProxAddress struct {
 	Port string `json:"Port"`
 }
 
-var RAWProxyList []string
+//var RAWProxyList []string
 
 func main() {
 
-	config.AdminDash.url = "proxysource.pnxbl.com"
+	//config.AdminDash.url = "proxysource.pnxbl.com"
 
+	config.Init()
+
+	//config.AdminDash.URL = "asda"
+
+	x := scraper.Scrape()
+
+	//time.Sleep(50 * time.Second)
+
+	for _, p := range x {
+		fmt.Printf(p + "\n")
+	}
 }

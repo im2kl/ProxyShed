@@ -13,11 +13,11 @@ type ProxySource struct {
 	Reg string `json:"reg"`
 }
 
-// RAWProxyList to be returned after scrapping.
-var RAWProxyList []string
+// rawlist to be returned after scrapping.
+var rawlist []string
 
 // Scrape returns a list of scrapped proxies as a ip:port format
-func Scrape() {
+func Scrape() []string {
 	response, err := http.Get("https://gist.github.com/futurex189/3769289")
 	if err != nil {
 		log.Fatal(err)
@@ -36,6 +36,10 @@ func Scrape() {
 	//find all that match
 	match := re.FindAllString(newStr, -1)
 
-	RAWProxyList = append(RAWProxyList, match...)
+	rawlist = append(rawlist, match...)
 
+	//if rawlist != nil {
+	//	return rawlist
+	//}
+	return rawlist
 }
