@@ -1,20 +1,30 @@
 package config
 
-// adminDash is the api url for admin information
-type adminDash struct {
+// appSettings is the api url for admin information
+type appSettings struct {
 	// URL admin url for dashboard
 	url string
 	// Token Connection token / license
 	token string
+	// maxT maximum number of threads to use
+	maxT int
 }
 
 // Init initialize the config
 func Init() {
 
-	conf := adminDash{}
+	conf := appSettings{}
 
 	//get from secure source or hardcode?
 	conf.token = "asd"
 	conf.url = "proxysource.pnxbl.com"
+	conf.maxT = 10
+}
 
+func (t *appSettings) GetToken() string {
+	return t.token
+}
+
+func (t *appSettings) MaxThread() int {
+	return t.maxT
 }
