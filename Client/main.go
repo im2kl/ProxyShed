@@ -16,11 +16,7 @@ type ProxAddress struct {
 
 func main() {
 
-	//config.AdminDash.url = "proxysource.pnxbl.com"
-
 	config.Init()
-
-	//config.AdminDash.URL = "asda"
 
 	x := scraper.Scrape()
 
