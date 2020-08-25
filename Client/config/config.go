@@ -19,12 +19,14 @@ func Init() {
 	conf.token = "asd"
 	conf.url = "proxysource.pnxbl.com"
 	conf.maxT = 10
+
 }
 
 func (t *appSettings) GetToken() string {
 	return t.token
 }
 
+// MaxThread get max set threads
 func (t *appSettings) MaxThread() int {
 	return t.maxT
 }

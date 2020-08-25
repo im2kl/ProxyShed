@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/im2kl/ProxyShed/Client/config"
+	proxydial "github.com/im2kl/ProxyShed/Client/proxyDial"
 	"github.com/im2kl/ProxyShed/Client/scraper"
 )
 
@@ -20,9 +21,13 @@ func main() {
 
 	x := scraper.Scrape()
 
+	y := proxydial.Test()
+
+	//f := config.MaxThread()
+
 	//time.Sleep(50 * time.Second)
 
 	for _, p := range x {
-		fmt.Printf(p + "\n")
+		fmt.Printf(p + "\n" + y + "\n")
 	}
 }
