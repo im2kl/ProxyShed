@@ -2,10 +2,10 @@ from flask import Flask, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 from flask_restful import Api, Resource
-from os import environ
+
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///proxypax.db'
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
 api = Api(app)
@@ -27,6 +27,23 @@ class PostSchema(ma.Schema):
 
 post_schema = PostSchema()
 posts_schema = PostSchema(many=True)
+
+
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    token = db.Column(db.String(255))
+    email = db.Column(db.String(255))
+
+    def __repr__(self):
+        return 'User %s' % self.token
+
+
+class UserSchema(ma.Schema):
+    class Meta:
+        fields = ("id", "token", "email")
+
+
+user_schema = UserSchema()
 
 
 def auth_required(f):
@@ -69,4 +86,4 @@ class ScrapeURL(Resource):
 api.add_resource(ScrapeURL, '/s')
 
 if __name__ == '__main__':
-    app.run(debug=environ['DEBUG'])
+    app.run(debug=True)
