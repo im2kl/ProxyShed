@@ -5,16 +5,17 @@ from flask_restful import Api, Resource
 
 
 app = Flask(__name__)
+
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///proxypax.db'
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
-api = Api(app)
+api = Api(app, prefix="/api/v1")
 
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    url = db.Column(db.String(255))
-    reg = db.Column(db.String(255))
+    url = db.Column(db.String(2048))
+    reg = db.Column(db.String(1024))
 
     def __repr__(self):
         return '<Post %s>' % self.url
@@ -22,7 +23,7 @@ class Post(db.Model):
 
 class PostSchema(ma.Schema):
     class Meta:
-        fields = ("id", "url", "reg")
+        fields = ("url", "reg")
 
 
 post_schema = PostSchema()
@@ -35,12 +36,12 @@ class User(db.Model):
     email = db.Column(db.String(255))
 
     def __repr__(self):
-        return 'User %s' % self.token
+        return '<User %s>' % self.token
 
 
 class UserSchema(ma.Schema):
     class Meta:
-        fields = ("id", "token", "email")
+        fields = ("token", "email")
 
 
 user_schema = UserSchema()
@@ -60,7 +61,7 @@ def auth_required(f):
             # VALIDATION NEEDED!!! login and validate token.
             # return {'message': 'youre all good'}, 200
             print("passed")
-        except:
+        except Exception:
             return {'message': 'Invalid Token'}, 401
         return f(*args)
 
