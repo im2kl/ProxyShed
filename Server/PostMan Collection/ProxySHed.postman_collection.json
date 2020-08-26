@@ -1,0 +1,78 @@
+{
+	"info": {
+		"_postman_id": "a5de5eae-8966-4600-90cb-7168e1329612",
+		"name": "ProxySHed",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "localhost:5000/api/v1/s",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "x-access-token",
+						"value": "asdasdadsadssadtokreeennnn",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:5000/api/v1/s",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"s"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/api/v1/s",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "x-access-token",
+						"value": "asdasdadsadssadtokreeennnn",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"url\":\"Posd3345gfhfgh6456fghfh6dd1\", \"reg\":\"Lo5464645fghfghfghfgh6ffghfhfg222psum\"}"
+				},
+				"url": {
+					"raw": "localhost:5000/api/v1/s",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"s"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
