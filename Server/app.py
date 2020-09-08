@@ -84,7 +84,7 @@ class ScrapeURL(Resource):
         return post_schema.dump(new_post)
 
 
-api.add_resource(ScrapeURL, '/s')
+api.add_resource(ScrapeURL, '/list')
 
 if __name__ == '__main__':
     app.run(debug=True)
