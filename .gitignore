@@ -5,3 +5,5 @@ list.ign
 build
 .vscode
 __pycache__
+*.db
+proxypax.db
