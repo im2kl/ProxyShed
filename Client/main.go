@@ -3,31 +3,27 @@ package main
 import (
 	"fmt"
 
+	"github.com/im2kl/ProxyShed/Client/admin"
 	"github.com/im2kl/ProxyShed/Client/config"
-	proxydial "github.com/im2kl/ProxyShed/Client/proxyDial"
 	"github.com/im2kl/ProxyShed/Client/scraper"
 )
-
-type ProxAddress struct {
-	IP   string `json:"IP"`
-	Port string `json:"Port"`
-}
 
 //var RAWProxyList []string
 
 func main() {
 
 	config.Init()
+	x := admin.GetURLList()
 
-	x := scraper.Scrape()
+	s := scraper.Scrape(x)
 
-	y := proxydial.Test()
+	//y := proxydial.Test()
 
 	//f := config.MaxThread()
 
 	//time.Sleep(50 * time.Second)
 
-	for _, p := range x {
-		fmt.Printf(p + "\n" + y + "\n")
-	}
+	//for _, p := range s {
+	fmt.Printf(s[0] + "\n")
+	//}
 }
